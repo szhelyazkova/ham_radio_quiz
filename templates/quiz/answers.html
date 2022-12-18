@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div id="content" xmlns="http://www.w3.org/1999/html">
+		<div class="post">
+            <blockquote>{{ question.content }}</blockquote>
+            <ul>
+                {% for answer in answers %}
+                    <li>{{ answer.content }}</li>
+                {% endfor %}
+            </ul>
+            <p>The answer is <b>{{ correct_answer }}</b></p>
+            <a id="next" href="{% url 'show answers' question_pk=next_question %}">
+                Show next question in <b>{{ question.category|title }}</b> category with
+                <b>{{ question.amateur_class }}</b> difficulty
+            </a>
+            <h3><a id="next" href="{% url 'questions by category' question.category %}">
+                Return to {{ question.category|title }}</a>
+            </h3>
+		</div>
+	</div>
+{% endblock %}

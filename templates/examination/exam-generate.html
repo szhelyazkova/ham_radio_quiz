@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+	<div id="content">
+		<div class="post">
+
+            {% if not chosen_level %}
+                <form method="get" action="{% url 'create exam'%}">
+                    <h3>Choose a difficulty level</h3>
+                    {% for level in skill_levels %}
+                        <div id="quiz_radio"><input type="radio" value="{{ level }}" name="choice">{{ level }}</div>
+                    {% endfor %}
+                    <button id="attribution" type="submit" name="level" value="{{ level }}">Choose</button>
+                    {% csrf_token %}
+                </form>
+
+            {% else %}
+                {% if is_generated %}
+                    <form method="get" action="{% url 'solve exam'%}">
+                        <p>Generated {{ question_number }} quiz questions for {{ chosen_level }} level. You need {{ needed_correct_answers }} correct answers to pass the quiz.</p>
+                        <button id="attribution" type="submit" name="start" value="{{ True }}">Start exam</button>
+                        {% csrf_token %}
+                    </form>
+                {% else %}
+                    <p>Not enough questions to make a quiz. Try later!</p>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

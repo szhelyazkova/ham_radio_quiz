@@ -1,0 +1,18 @@
+<nav>
+<label for="show-menu" class="responsive">&#9776; Menu</label>
+<input type="checkbox" id="show-menu" role="button">
+		<ul id="menu">
+			<li><a href="{% url 'index' %}" title="Home">Home</a></li>
+			<li><a href="{% url 'show random question' %}" title="Random">Try random question</a></li>
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'create exam' %}" title="Exam">Exam</a></li>
+                <li><a href="{% url 'result exam' %}" title="Result">My results</a></li>
+                <li><a href="{% url 'questions show' %}" title="Propositions">My questions</a></li>
+                <li><a href="{% url 'user details' pk=request.user.pk %}" title="Profile">Profile</a></li>
+                <li><a href="{% url 'user logout' %}" title="Log out">Log out</a></li>
+            {% else %}
+                <li><a href="{% url 'user create' %}" title="Register">Register</a></li>
+                <li><a href="{% url 'user login' %}" title="Log in">Log in</a></li>
+            {% endif %}
+		</ul>
+</nav>

@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div class="container">
+{% if object == request.user %}
+    <h1>Delete {{ object.username }} pofile</h1>
+
+    <div class="items-container">
+            <div class="item">
+                <h2>Are you sure?</h2>
+                <form method="POST" action="{% url 'user delete' pk=object.pk %}">
+                    <input id="quiz_radio" type="submit" value="Yes"/>
+                    <input type="submit" name='cancel' value="Cancel"/>
+                    {% csrf_token %}
+                </form>
+            </div>
+    </div>
+{% else %}
+    <h1>Permission denied!</h1>
+{% endif %}
+</div>
+{% endblock %}

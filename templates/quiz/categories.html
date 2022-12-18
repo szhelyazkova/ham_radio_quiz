@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% block content %}
+	<div id="content">
+		<div class="post">
+            <h2>Category {{ chosen_category|title }} </h2>
+            {% if chosen_level %}
+                <h4>{{ chosen_level|title }} level </h4>
+            {% endif %}
+            {% if questions %}
+                {% if skill_levels %}
+                    <form method="post">
+                        <h3>You can choose a difficulty level</h3>
+                        {% for level in skill_levels %}
+                            <div id="quiz_radio"><input type="radio" value="{{ level }}" name="choice">{{ level }}</div>
+                        {% endfor %}
+                        <button id="attribution" type="submit" name="level" value="{{ level }}">Choose</button>
+                        {% csrf_token %}
+                    </form>
+                {% endif %}
+                <ul>
+                    {% for question in questions %}
+                        <li><a href="{% url 'show answers' question_pk=question.pk %}">{{ question.content }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No added questions in this category</p>
+                <ul>
+                    {% for category in not_chosen_categories %}
+                        <li><b><a href="{% url 'questions by category' category %}">{{ category|title }}</a></b></li>
+                     {% endfor %}
+                </ul>
+            {% endif %}
+
+        </div>
+        {% if page_obj %}
+            <div>
+                <span>
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                    {% else %}
+                        <span>&laquo;</span>
+                    {% endif %}
+
+                    {% for i in page_obj.paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <span>{{ i }}</span>
+                        {% else %}
+                            <a href="?page={{ i }}"><u>{{ i }}</u></a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                    {% else %}
+                        <span>&raquo;</span>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

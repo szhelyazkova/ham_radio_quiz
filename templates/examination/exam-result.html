@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="post">
+        <ol><h3>Summary:</h3>
+        {% if results %}
+            {% for result in results %}
+                <li>{{ result.exam_date|date:'Y-m-d'}} - points: {{ result.points }} -
+                    {% if result.exam_is_passed %} passed {% else %} not passed {% endif %}</li>
+             {% endfor %}
+        {% else %}
+            <p>No completed quizzes.</p>
+        {% endif %}
+        </ol>
+    </div>
+</div>
+{% endblock %}

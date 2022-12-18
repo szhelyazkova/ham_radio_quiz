@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% load placeholders %}
+{% block content %}
+
+<div class="container">
+    <h1>Member area</h1>
+    <div class="items-container">
+
+        <div class="item">
+            <form method="POST" action="{% url 'user create' %}">
+                {{ form.username|placeholder:'Username' }}
+                {{ form.username.errors }}
+                {{ form.password1|placeholder:'Password' }}
+                {{ form.password1.errors}}
+                {{ form.password2|placeholder:'Repeat password' }}
+                {{ form.password2.errors }}
+                {{ form.email|placeholder:'Email' }}
+                {{ form.email.errors }}
+                <button type="submit">Register</button>
+                {% csrf_token %}
+                <p>Have an account? <a href="{% url 'user login' %}">Log in</a></p>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+	<div id="content">
+		<div class="post">
+         <form method="post" action="{% url 'solve exam'%}">
+            <blockquote>{{ question.content }}</blockquote>
+            {% if question %}
+                {% for answer in answers %}
+                    <div id="quiz_radio"><input type="radio" value="{{ answer.pk }}" name="choice">{{ answer.content }}</div>
+                {% endfor %}
+                <button id="attribution" type="submit" name="question" value="{{ question.pk }}">Submit</button>
+                {% csrf_token %}
+              </form>
+         {% else %}
+                <button id="attribution" type="submit" name="get-result">View result</button>
+                {% csrf_token %}
+         {% endif %}
+        </div>
+    </div>
+{% endblock %}

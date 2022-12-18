@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div class="container">
+{% if request.user.pk == question.user_id %}
+    <h1>Remove {{ request.user.username }} question</h1>
+    <div class="items-container">
+
+        <div class="item">
+            <form method="POST" action="{% url 'question delete' q_id=question.pk%}">
+                {{ form }}
+                <button type="submit">Remove</button>
+                {% csrf_token %}
+            </form>
+        </div>
+
+    </div>
+{% else %}
+     <h1>Permission denied!</h1>
+{% endif %}
+</div>
+{% endblock %}

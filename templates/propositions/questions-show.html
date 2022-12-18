@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div id="content">
+    <div class="post">
+    <p>Here you can propose new questions. After approval by admin, they will be included in a quiz.</p>
+        <p><a href="{% url 'question add' pk=request.user.pk %}">Create question</a></p>
+        <ol><h3>My proposed questions:</h3>
+        {% if questions %}
+            {% for question in questions %}
+                <li><a href="{% url 'questions details' q_id=question.pk %}">{{ question.content }}</a></li>
+             {% endfor %}
+        {% else %}
+            <p>No proposed questions.</p>
+        {% endif %}
+        </ol>
+    </div>
+</div>
+{% endblock %}

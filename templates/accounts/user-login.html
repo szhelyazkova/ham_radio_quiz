@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% load placeholders %}
+{% block content %}
+
+<div class="container">
+    <h1>Member area</h1>
+    <div class="items-container">
+        <div class="item">
+            <form method="POST" action="{% url 'user login' %}">
+                {{ form.username|placeholder:'Username' }}
+                {{ form.password|placeholder:'Password' }}
+                {% if form.errors %}
+                    {% for error in form.non_field_errors %}
+                        <div><strong>{{ error|escape }}</strong></div>
+                    {% endfor %}
+                {% endif %}
+                <input type="hidden" name="next" value="{{ next }}">
+                <button type="submit">Log in</button>
+                {% csrf_token %}
+                <p>Don't have an account? <a href="{% url 'user create' %}">Register</a></p>
+            </form>
+        </div>
+
+        <div>
+</div>
+    </div>
+</div>
+
+{% endblock %}

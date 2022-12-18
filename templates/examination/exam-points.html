@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+	<div id="content">
+
+		<div class="post">
+        {% if message %}
+            {{ message}}
+        {% else %}
+            <form method="get" action="{% url 'points exam'%}">
+                {%  if exam_is_passed %}<h3>Congratulation! You have successfully completed the quiz.</h3>
+                {% else %}<h3>Sorry, you did not pass the quiz. You need {{ needed_correct_answers }} correct answers. You have:</h3>
+                    {% endif %}
+                <ul>
+                    <li>Correct answers: {{ correct_answers }}.</li>
+                    <li>Wrong answers: {{ wrong_answers }}.</li>
+                    <li>No answered: {{ not_answered }}.</li>
+                </ul>
+
+            </form>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% load placeholders %}
+{% block content %}
+
+<div class="container">
+{% if object == request.user %}
+    <h1>Edit {{ object.username }} profile</h1>
+    <div class="items-container">
+
+        <div class="item">
+            <form method="POST" action="{% url 'user edit' pk=object.pk %}">
+                {{ form.first_name.label }}:{{ form.first_name }}
+                {{ form.first_name.errors }}
+                {{ form.last_name.label }}:{{ form.last_name }}
+                {{ form.last_name.errors }}
+                {{ form.email.label }}:{{ form.email }}
+                {{ form.email.errors }}
+                {{ form.call_sign.label }}:{{ form.call_sign }}
+                {{ form.call_sign.errors }}
+                <button type="submit">Edit</button>
+                {% csrf_token %}
+                <p><a href="{% url 'user delete' pk=object.pk %}">Delete profile</a></p>
+            </form>
+        </div>
+
+    </div>
+{% else %}
+     <h1>Permission denied!</h1>
+{% endif %}
+</div>
+{% endblock %}

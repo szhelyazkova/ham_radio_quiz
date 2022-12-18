@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div class="container">
+{% if object == request.user %}
+    <h1>{{ object.username }} profile</h1>
+    <div class="items-container">
+        <div class="item">
+            {% if object.get_full_name%}
+                <div>{{ object.get_full_name }}</div>
+            {% endif %}
+            {% if object.call_sign %}
+                <div>{{ object.call_sign }}</div>
+            {% endif %}
+            {% if object.email %}
+                <div>{{ object.email }}</div>
+            {% endif %}
+            <h2><a href="{% url 'user edit' pk=object.pk %}">Edit</a></h2>
+        </div>
+    </div>
+{% else %}
+     <h1>Permission denied!</h1>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% block content %}
+	<div id="content">
+		<div class="post">
+		<h2>Categories:</h2>
+            <ul>
+                {% for category in categories %}
+                    <li><b><a href="{% url 'questions by category' category %}">{{ category|title }}</a></b></li>
+                 {% endfor %}
+
+		    </ul>
+            <p>After studying questions in categories, you can check your learning
+                with the <a href="{% url 'show random question' %}">interactive random generated questions</a>.</p
+            <p>The questions come from the CRC exam conspectus.
+                The CRC is the organization responsible for granting the amateur radio license.
+                You can check the questions for yourself on the
+                <a href="https://crc.bg/bg/rubriki/143/testove-za-provejdane-na-izpiti-za-pravosposobnost-na-radiolubiteli"><u>CRC website</u>.</a></p>
+        <p>Registered users can try similar to the official exam and even propose new questions.</p>
+        <p>Only admins add questions.</p>
+		</div>
+	</div>
+{% endblock %}

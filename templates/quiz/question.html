@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% block content %}
+	<div id="content">
+
+        <div class="post">
+
+            <form method="post">
+            {% if question or is_answer %}
+                {% if not message %}
+                    <blockquote><p>{{ question.content }}</p></blockquote>
+                    {% for answer in answers %}
+                        <div id="quiz_radio"><input type="radio" value="{{ answer.pk }}" name="choice">{{ answer.content }}</div>
+                    {% endfor %}
+                    <button id="attribution" type="submit" name="question" value="{{ question.pk }}">Submit</button>
+                    {% csrf_token %}
+                {% else %}
+                    <p>{{ message }}</p>
+                    {% if not given_answer_is_correct %}
+                        <div><strong>{{ correct_answer }}</strong></div>
+                    {% endif %}
+                    <a id="next" href="{% url 'show random question' %}">Try another</a>
+                {% endif %}
+            {% else %}
+                <blockquote><p>Sorry, no added questions. Try later!</p></blockquote>
+                <p>Only admins add questions.</p>
+            {% endif %}
+            </form>
+
+        </div>
+
+    </div>
+{% endblock %}

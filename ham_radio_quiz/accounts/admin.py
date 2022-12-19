@@ -13,3 +13,9 @@ class AppUserAdmin(auth_admin.UserAdmin):
         'date_joined',
         'last_login',
     ]
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        if request.user.is_superuser:
+            return queryset
+        return queryset.filter(is_superuser=False)

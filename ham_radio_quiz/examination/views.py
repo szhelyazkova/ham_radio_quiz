@@ -142,7 +142,6 @@ class ExamPointsView(auth_mixins.LoginRequiredMixin, views.View):
             for given_answer in given_answers:
                 if given_answer.user_test_answer_id:
                     answer = get_object_or_404(Answer, pk=given_answer.user_test_answer_id)
-                    # answer = Answer.objects.filter(pk=given_answer.user_test_answer_id).get_object_or_404()
                     if answer.is_correct:
                         correct_answers += 1
                     else:
